@@ -1,8 +1,8 @@
 # Browser Printing Examples
 
-> Real, runnable examples of printing from web apps — native browser printing and silent local printing via [PortixOne](https://github.com/PortixOne/portixone), across frameworks.
+> Real, runnable examples of printing from web apps — native browser printing and silent local printing via [PortixOne](https://github.com/portixhq/portixone), across frameworks.
 
-See also: [awesome-web-printing](https://github.com/PortixOne/awesome-web-printing) (ecosystem reference) · [escpos-cheatsheet](https://github.com/PortixOne/escpos-cheatsheet) (thermal printer commands).
+See also: [awesome-web-printing](https://github.com/portixhq/awesome-web-printing) (ecosystem reference) · [escpos-cheatsheet](https://github.com/portixhq/escpos-cheatsheet) (thermal printer commands).
 
 ## Examples
 
@@ -17,11 +17,11 @@ See also: [awesome-web-printing](https://github.com/PortixOne/awesome-web-printi
 
 `window.print()` (the `vanilla-js/window-print` example) works everywhere, no setup — but it always shows the OS print dialog and can't pick a printer or print without user interaction.
 
-For **silent** printing (no dialog, specific printer, works from a kiosk/POS), you need a local bridge. The other three examples talk directly to the [PortixOne runtime](https://github.com/PortixOne/portixone) — a small local process that receives print jobs over HTTP and sends them to a real printer.
+For **silent** printing (no dialog, specific printer, works from a kiosk/POS), you need a local bridge. The other three examples talk directly to the [PortixOne runtime](https://github.com/portixhq/portixone) — a small local process that receives print jobs over HTTP and sends them to a real printer.
 
 ## Running the PortixOne examples
 
-1. Clone and run the runtime: see [`portixone/runtime/README.md`](https://github.com/PortixOne/portixone/tree/master/runtime).
+1. Clone and run the runtime: see [`portixone/runtime/README.md`](https://github.com/portixhq/portixone/tree/master/runtime).
 2. Open `vanilla-js/portixone-fetch/index.html` directly, or `npm install && npm run dev` inside `react/print-button` / `vue/print-button`.
 
 > `@portixone/sdk-js` isn't published to npm yet — every example here uses plain `fetch()` against the runtime's local HTTP API, which is exactly what the SDK does under the hood.
