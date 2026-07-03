@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Silent printing via PortixOne (plain fetch, no SDK)</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 640px;
+        margin: 40px auto;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 12px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Silent printing via PortixOne</h1>
+    <p>
+      No print dialog, no printer picker — this calls the
+      <a href="https://github.com/PortixOne/portixone">PortixOne runtime</a>
+      running on your machine directly with <code>fetch()</code>. No SDK
+      install needed; this is exactly what
+      <a href="https://github.com/PortixOne/portix-sdk-js">@portixone/sdk-js</a>
+      does under the hood.
+    </p>
+    <p>Requires the runtime running locally (<code>npm run dev</code> in the <code>portixone</code> repo).</p>
+
+    <label>
+      Runtime URL
+      <input id="baseUrl" type="text" value="http://127.0.0.1:17321" size="30" />
+    </label>
+    <br />
+    <label>
+      API key
+      <input id="apiKey" type="text" value="dev-local-key" size="30" />
+    </label>
+    <br /><br />
+    <button id="printBtn">Print test ticket</button>
+
+    <pre id="output"></pre>
+
+    <script type="module">
+      const output = document.getElementById('output');
+
+      document.getElementById('printBtn').addEventListener('click', async () => {
+        const baseUrl = document.getElementById('baseUrl').value;
+        const apiKey = document.getElementById('apiKey').value;
+
+        try {
+          const response = await fetch(`${baseUrl}/print`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-portix-api-key': apiKey,
+            },
+            body: JSON.stringify({ content: 'Test ticket — no print dialog!' }),
+          });
+          const body = await response.json();
+          output.textContent = JSON.stringify(body, null, 2);
+        } catch (error) {
+          output.textContent = `Request failed: ${error.message}\n\nIs the PortixOne runtime running?`;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>window.print() — print only one element</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 640px;
+        margin: 40px auto;
+      }
+
+      /*
+        The most common real-world need with window.print() isn't printing
+        the whole page — it's printing ONE element (a receipt, an invoice)
+        while hiding the surrounding UI (nav, buttons, sidebars).
+
+        @media print + a "print-only" wrapper is the standard way to do
+        that with zero JavaScript beyond triggering the dialog.
+      */
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        #receipt,
+        #receipt * {
+          visibility: visible;
+        }
+        #receipt {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+        }
+        .no-print {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="no-print">window.print() — print only one element</h1>
+    <p class="no-print">
+      Click "Print receipt" — only the box below prints, not this page chrome.
+      No printer selection, no silent printing: the OS print dialog always
+      appears. For silent/local printing, see
+      <a href="../portixone-fetch">../portixone-fetch</a>.
+    </p>
+
+    <button class="no-print" onclick="window.print()">Print receipt</button>
+
+    <div id="receipt" style="border: 1px dashed #999; padding: 16px; margin-top: 16px">
+      <h2>Receipt #0001</h2>
+      <p>1x Coffee — $3.50</p>
+      <p>1x Croissant — $2.75</p>
+      <hr />
+      <p><strong>Total: $6.25</strong></p>
+    </div>
+  </body>
+</html>
